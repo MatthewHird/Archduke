@@ -1,5 +1,10 @@
-class AppStates:
-    menu = 0
-    game = 1
-    settings = 2
-    quit = 3
+from enum import Enum
+
+
+class States(Enum):
+    menu = 'Menu'
+    game = 'Start'
+    settings = 'Settings'
+    quit = 'Exit'
+
+

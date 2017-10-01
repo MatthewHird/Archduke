@@ -51,7 +51,7 @@ class Vehicle:
         self.theta_vehicle = 0
         self.omega_actual = 0
 
-    def force(self, engine_state, brake_state, turning_state):
+    def update(self, engine_state, brake_state, turning_state):
         self.velocity_0 = self.velocity_1
         if self.velocity_0 >= 0:
             self.velocity_direction = 1

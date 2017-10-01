@@ -10,7 +10,7 @@ class Display:
         self.height = height
         self.display = None
 
-    def init(self):
+    def run(self):
         pygame.init()
 
         screen_dimensions = pygame.display.Info().current_w, pygame.display.Info().current_h
