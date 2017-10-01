@@ -24,9 +24,8 @@ class Menu:
         self.display_size = display_size
 
         self.title_surf = self.title_font.render(app_name, 1, self.white)
-        self.title_width = (display_size[0] / 2)
-        self.title_height = (display_size[1] / 3)
-        self.title_xy = (display_size[0] / 4, display_size[1] / 5)
+        self.title_xy = (display_size[0] / 2 - self.title_surf.get_width() / 2,
+                         display_size[1] / 4 - self.title_surf.get_height() / 2)
 
         self.buttons = []
         for index, item in enumerate(self.states):
