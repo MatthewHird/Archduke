@@ -12,9 +12,9 @@ class Button:
         self.offset_y = ((self.hit_font.get_height() - self.menu_font.get_height()) / 4)
         self.menu_surf = pygame.Surface(self.size, flags=pygame.SRCALPHA)
         self.menu_surf.fill((0, 0, 0, 0))
+        self.menu_surf.blit(self.menu_font, [self.offset_x, self.offset_y])
         self.hit_surf = pygame.Surface(self.size, flags=pygame.SRCALPHA)
         self.hit_surf.fill((0, 0, 0, 0))
-        self.menu_surf.blit(self.menu_font, [self.offset_x, self.offset_y])
         self.hit_surf.blit(self.hit_font, [0, 0])
         self.xy = [0, 0]
         self.rect = None

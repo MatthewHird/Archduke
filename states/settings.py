@@ -17,7 +17,8 @@ class Settings:
             self.events()
             self.update()
             self.draw()
-            self.clock.tick(self.fps)
+            self.cleanup()
+            self.return_value = 'Menu'
 
         return self.return_value
 
@@ -29,3 +30,6 @@ class Settings:
 
     def draw(self):
         pass
+
+    def cleanup(self):
+        self.clock.tick(self.fps)

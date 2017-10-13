@@ -11,14 +11,16 @@ class Paused:
 
     black = (0, 0, 0)
     white = (255, 255, 255)
+    red = (255, 0, 0)
 
     btn_names = ['Resume', 'Menu', 'Exit']
 
-    def __init__(self, display, display_size):
+    def __init__(self, display, display_size, bg_color):
         self.return_value = None
         self.display = display
         self.clock = pygame.time.Clock()
         self.display_size = display_size
+        self.bg_color = bg_color
 
         self.p_menu = pygame.Surface((round(self.display_size[0] / 2), round(self.display_size[1] / 2)))
         self.p_menu_size = self.p_menu.get_size()
@@ -68,7 +70,7 @@ class Paused:
 
     def draw(self):
         update_list = []
-        self.display.fill(self.black)
+        self.display.fill(self.bg_color)
         self.display.blit(self.p_menu, self.p_menu_xy)
         for button in self.buttons:
             if button.frame_update:

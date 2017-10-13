@@ -13,8 +13,10 @@ class Menu:
 
     black = (0, 0, 0)
     white = (255, 255, 255)
+    red = (255, 0, 0)
+    bg_color = black
 
-    btn_names = [States.game, States.settings, States.app_exit]
+    btn_names = ['Start', 'Settings', 'Exit']
 
     def __init__(self, app_name, display, display_size):
         self.return_value = None
@@ -22,13 +24,17 @@ class Menu:
         self.clock = pygame.time.Clock()
         self.display_size = display_size
 
-        self.title_surf = self.title_font.render(app_name, 1, self.white)
-        self.title_xy = (display_size[0] / 2 - self.title_surf.get_width() / 2,
-                         display_size[1] / 4 - self.title_surf.get_height() / 2)
+        self.title_font = self.title_font.render(app_name, 1, self.white)
+        self.title_size = (self.title_font.get_width(), self.title_font.get_height())
+        self.title_xy = (display_size[0] / 2 - self.title_font.get_width() / 2,
+                         display_size[1] / 4 - self.title_font.get_height() / 2)
+        self.title_surf = pygame.Surface(self.title_size, flags=pygame.SRCALPHA)
+        self.title_surf.fill((0, 0, 0, 0))
+        self.title_surf.blit(self.title_font, (0, 0))
 
         self.buttons = []
         for index, item in enumerate(self.btn_names):
-            button = Button(self.display, item.value, self.menu_font, self.hit_font, self.white)
+            button = Button(self.display, item, self.menu_font, self.hit_font, self.white)
             button.xy = [(display_size[0] - button.size[0]) / 2,
                          display_size[1] * 3 / 4 + button.size[1] * index - (button.size[1] * len(self.btn_names) / 2)]
             button.rect = [button.xy[0], button.xy[1], button.size[0], button.size[1]]
@@ -36,7 +42,7 @@ class Menu:
 
     def run(self):
         self.return_value = None
-        self.display.fill(self.black)
+        self.display.fill(self.bg_color)
         self.display.blit(self.title_surf, self.title_xy)
         pygame.display.update()
 
@@ -64,7 +70,7 @@ class Menu:
 
     def draw(self):
         update_list = []
-        self.display.fill(self.black)
+        self.display.fill(self.bg_color)
         self.display.blit(self.title_surf, self.title_xy)
         for button in self.buttons:
             if button.frame_update:

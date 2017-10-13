@@ -8,7 +8,8 @@ class Game:
     fps = 60
     black = (0, 0, 0)
     white = (255, 255, 255)
-    white_a = (255, 255, 255, 50)
+    red = (255, 0, 0)
+    bg_color = black
 
     def __init__(self, app_name, display, display_size):
         self.return_value = None
@@ -27,8 +28,7 @@ class Game:
             self.events()
             self.update()
             self.draw()
-            self.clock.tick(self.fps)
-            pygame.display.set_caption("fps: " + str(round(self.clock.get_fps(), 1)))
+            self.cleanup()
 
         return self.return_value
 
@@ -60,13 +60,17 @@ class Game:
                 elif event.key == pygame.K_RSHIFT:
                     self.vehicle.turn_mod = 1
                 elif event.key == pygame.K_p:
-                    paused = Paused(self.display, self.display_size)
+                    paused = Paused(self.display, self.display_size, self.bg_color)
                     self.return_value = paused.run()
 
     def update(self):
         self.vehicle.update(self.boundary)
 
     def draw(self):
-        self.display.fill(self.black)
+        self.display.fill(self.bg_color)
         self.vehicle.draw()
         pygame.display.update()
+
+    def cleanup(self):
+        self.clock.tick(self.fps)
+        pygame.display.set_caption("fps: " + str(round(self.clock.get_fps(), 1)))
