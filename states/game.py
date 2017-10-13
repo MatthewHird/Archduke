@@ -35,7 +35,7 @@ class Game:
     def events(self):
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
-                self.return_value = True
+                self.return_value = 'Exit'
             elif event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_a:
                     self.vehicle.left = -1

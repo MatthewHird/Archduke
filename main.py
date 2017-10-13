@@ -21,7 +21,6 @@ class App:
         display_init.run()
         display = display_init.display
 
-
         app_quit = False
 
         while not app_quit:
