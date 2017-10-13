@@ -5,6 +5,6 @@ class States(Enum):
     menu = 'Menu'
     game = 'Start'
     settings = 'Settings'
-    quit = 'Exit'
+    app_exit = 'Exit'
 
 
