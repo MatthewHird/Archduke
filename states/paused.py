@@ -40,7 +40,7 @@ class Paused:
     def run(self):
         self.display.blit(self.p_menu, self.p_menu_xy)
         for button in self.buttons:
-            button.update()
+            button.frame_update = True
             button.draw()
         pygame.display.update()
 

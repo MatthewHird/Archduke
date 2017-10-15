@@ -32,6 +32,7 @@ class Game:
                 self.p_menu.update()
                 if self.return_value == 'Resume':
                     self.return_value = None
+                    self.paused = None
             else:
                 self.events()
                 self.update()
