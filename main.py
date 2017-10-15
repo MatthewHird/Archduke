@@ -1,4 +1,3 @@
-import pygame
 from display.display import Display
 from states.app_states import States
 from states.menu import Menu

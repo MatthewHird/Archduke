@@ -20,15 +20,30 @@ class Game:
         self.vehicle = Vehicle(self.display)
         self.boundary_init = Boundary(self.display, self.display_size)
         self.boundary = self.boundary_init.walls
+        self.p_menu = Paused(self.display, self.display_size, self.bg_color)
+        self.paused = None
 
     def run(self):
         self.return_value = None
 
         while not self.return_value:
-            self.events()
-            self.update()
+            if self.paused:
+                self.return_value = self.p_menu.events()
+                self.p_menu.update()
+                if self.return_value == 'Resume':
+                    self.return_value = None
+            else:
+                self.events()
+                self.update()
+
             self.draw()
-            self.cleanup()
+            if self.paused:
+                self.p_menu.draw()
+
+            if self.paused:
+                self.p_menu.cleanup()
+            else:
+                self.cleanup()
 
         return self.return_value
 
@@ -60,8 +75,8 @@ class Game:
                 elif event.key == pygame.K_RSHIFT:
                     self.vehicle.turn_mod = 1
                 elif event.key == pygame.K_p:
-                    paused = Paused(self.display, self.display_size, self.bg_color)
-                    self.return_value = paused.run()
+                    self.paused = True
+                    self.p_menu.run()
 
     def update(self):
         self.vehicle.update(self.boundary)
@@ -69,7 +84,8 @@ class Game:
     def draw(self):
         self.display.fill(self.bg_color)
         self.vehicle.draw()
-        pygame.display.update()
+        if not self.paused:
+            pygame.display.update()
 
     def cleanup(self):
         self.clock.tick(self.fps)

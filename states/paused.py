@@ -16,7 +16,6 @@ class Paused:
     btn_names = ['Resume', 'Menu', 'Exit']
 
     def __init__(self, display, display_size, bg_color):
-        self.return_value = None
         self.display = display
         self.clock = pygame.time.Clock()
         self.display_size = display_size
@@ -39,30 +38,21 @@ class Paused:
             self.buttons.append(button)
 
     def run(self):
-        self.return_value = None
         self.display.blit(self.p_menu, self.p_menu_xy)
+        for button in self.buttons:
+            button.update()
+            button.draw()
         pygame.display.update()
-
-        while not self.return_value:
-            self.events()
-            self.update()
-            self.draw()
-            self.cleanup()
-
-        if self.return_value == 'Resume':
-            return None
-        else:
-            return self.return_value
 
     def events(self):
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
-                self.return_value = 'Exit'
+                return 'Exit'
             elif event.type == pygame.MOUSEBUTTONUP:
                 for button in self.buttons:
                     hit = button.hit()
                     if hit:
-                        self.return_value = button.text
+                        return button.text
 
     def update(self):
         for button in self.buttons:
@@ -70,7 +60,6 @@ class Paused:
 
     def draw(self):
         update_list = []
-        self.display.fill(self.bg_color)
         self.display.blit(self.p_menu, self.p_menu_xy)
         for button in self.buttons:
             if button.frame_update:
